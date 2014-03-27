@@ -14,6 +14,9 @@ var Application = function() {
           elementName: '_main',
           data: { user: user },
           template: 'main',
+          callback: function() {
+            $('.container').removeClass('loading');
+          }
         });
       });
     });
