@@ -1,8 +1,25 @@
-body {
-    font-family: sans-serif;
+#user-info {
+    margin-top: 20px;
 }
 
-#container {
-    width: 960px;
-    margin: 0 auto;
+#user-info #avatar {
+    width: 180px;
+    height: 180px;
+}
+
+#user-info h1 {
+    margin-top: 0;
+}
+
+#repositories .repository h3 {
+    margin-top: 0;
+    font-size: 1.3em;
+}
+
+#repositories .repository-meta .glyphicon {
+    margin-left: 5px;
+}
+
+#repositories .repository-meta .glyphicon:first-child {
+    margin-left: 0;
 }

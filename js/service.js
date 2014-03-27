@@ -10,7 +10,12 @@ var Service = {
     this.getUser(username, function(user) {
       Service.getRepositories(user, function(repositories) {
         user.repositories = repositories;
-        callback(user);
+
+        Service.getTopLanguages(repositories, function(languages) {
+          user.languages = languages;
+          callback(user);
+          console.log(languages)
+        });
       });
     });
   },
@@ -33,6 +38,21 @@ var Service = {
         callback(data);
       }
     });
+  },
+
+  getTopLanguages: function(repositories, callback, limit) {
+
+    if(!limit) {
+      limit = 5
+    }
+
+    var top = [];
+
+    $.each(repositories, function(i, v) {
+
+      top.push({ name: v.language, count: 0 });
+    });
+    callback(top);
   },
 
   /**
