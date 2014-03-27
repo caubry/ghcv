@@ -1,0 +1,45 @@
+<div id="user-info" class="row">
+    <div class="col-md-2">
+        <img src="{{ user.avatar_url }}" class="img-rounded" id="avatar">
+    </div>
+    <div class="col-md-9">
+        <h1>{{ user.name }}</h1>
+        <p><span class="glyphicon glyphicon-envelope"></span> <a href="mailto:{{ user.email }}">{{ user.email }}</a></p>
+        <p><span class="glyphicon glyphicon-map-marker"></span> {{ user.location }}</p>
+        <p><span class="glyphicon glyphicon-globe"></span> <a href="{{ user.blog }}">{{ user.blog }}</a></p>
+        {{ #user.hirable }}
+          <!-- message for non-signed-in users -->
+          <p><span class="glyphicon glyphicon-record"></span> Hirable!</p>
+        {{ /user.hirable }}
+        <p>{{ user.bio }}</p>
+    </div>
+</div>
+
+<div class="row">
+    <div id="repositories" class="col-md-7">
+        <h2>{{ user.public_repos }} Repositories</h2>
+        <ul class="list-group">
+            {{ #user.repositories }}
+            <li class="list-group-item repository">
+                <span class="pull-right">{{ language }}</span>
+                <h3><a href="{{ html_url }}" target="_blank">{{ name }}</a></h3>
+                <div class="repository-meta">
+                    <span class="glyphicon glyphicon-star"></span> {{ stargazers_count }}
+                    <span class="glyphicon glyphicon-random"></span> {{ forks_count }}
+                </div>
+            </li>
+            {{ /user.repositories }}
+        </ul>
+    </div>
+
+    <div id="languages" class="col-md-5">
+    <h2>Languages</h2>
+        {{ #user.languages }}
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+            {{ name }}
+            </div>
+        </div>
+        {{ /user.languages }}
+    </div>
+</div>

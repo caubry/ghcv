@@ -11,14 +11,9 @@ var Application = function() {
 
       Service.getFullUser(config.username, function(user) {
         that.buildSection({
-          elementName: '_info',
+          elementName: '_main',
           data: { user: user },
-          template: 'info',
-        });
-        that.buildSection({
-          elementName: '_repositories',
-          data: { user: user },
-          template: 'repositories',
+          template: 'main',
         });
       });
     });
