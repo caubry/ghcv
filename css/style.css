@@ -11,6 +11,10 @@
     margin-top: 0;
 }
 
+#repositories .repository {
+    min-height: 70px;
+}
+
 #repositories .repository h3 {
     margin-top: 0;
     font-size: 1.3em;
