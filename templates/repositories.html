@@ -1,0 +1,9 @@
+<h2>Repositories</h2>
+<div id="repositories">
+
+    <ul>
+        {{ #user.repositories }}
+        <li><a href="{{ html_url }}" target="_blank">{{ name }}</a></li>
+        {{ /user.repositories }}
+    </ul>
+</div>
