@@ -16,6 +16,19 @@
     font-size: 1.3em;
 }
 
+#repositories .repository-desc {
+    width: 80%;
+}
+
+#repositories .repository-meta {
+    text-align: right;
+}
+
+#repositories .repository-meta .meta.lang {
+    font-size: .9em;
+    font-weight: bold;
+}
+
 #repositories .repository-meta .glyphicon {
     margin-left: 5px;
 }
@@ -28,5 +41,5 @@
     margin-top: 100px;
     width: 32px;
     height: 32px;
-    background: url('/images/loader.gif') no-repeat;
+    background: url('../images/loader.gif') no-repeat;
 }

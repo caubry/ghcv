@@ -21,12 +21,15 @@
         <ul class="list-group">
             {{ #user.repositories }}
             <li class="list-group-item repository">
-                <span class="pull-right">{{ language }}</span>
-                <h3><a href="{{ html_url }}" target="_blank">{{ name }}</a></h3>
-                <div class="repository-meta">
-                    <span class="glyphicon glyphicon-star"></span> {{ stargazers_count }}
-                    <span class="glyphicon glyphicon-random"></span> {{ forks_count }}
+                <div class="pull-right repository-meta">
+                    <p class="meta lang">{{ language }}</p>
+                    <p>
+                        <span class="glyphicon glyphicon-star"></span> {{ stargazers_count }}
+                        <span class="glyphicon glyphicon-random"></span> {{ forks_count }}
+                    </p>
                 </div>
+                <h3><a href="{{ html_url }}" target="_blank">{{ name }}</a></h3>
+                <p class="repository-desc">{{ description }}</p>
             </li>
             {{ /user.repositories }}
         </ul>
