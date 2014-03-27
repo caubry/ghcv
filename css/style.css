@@ -28,5 +28,5 @@
     margin-top: 100px;
     width: 32px;
     height: 32px;
-    background: url('/images/loader.gif') no-repeat;
+    background: url('../images/loader.gif') no-repeat;
 }
