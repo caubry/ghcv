@@ -30,13 +30,31 @@ var Service = {
     });
   },
 
-  getRepositories: function(user, callback) {
-
+  /**
+   * Returns all repositories including forks
+   */
+  getAllRepositories: function(user, callback) {
     this.ghApiRequest({
       endpoint: '/users/' + user.login + '/repos',
       callback: function(data) {
         callback(data);
       }
+    });
+  },
+
+  getRepositories: function(user, callback) {
+
+    this.getAllRepositories(user, function(data) {
+      var repos = [];
+
+        $.each(data, function(k, v) {
+
+          // Ignore forks
+          if(v.fork === false) {
+            repos.push(v);
+          }
+        });
+        callback(repos);
     });
   },
 
