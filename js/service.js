@@ -58,6 +58,12 @@ var Service = {
     });
   },
 
+  /**
+   * Get the top languages from an array of repositories
+   *
+   * This will take all languages ordered by the number of repositories they
+   * feature in
+   */
   getTopLanguages: function(repositories, callback, limit) {
 
     if(!limit) {
@@ -68,7 +74,27 @@ var Service = {
 
     $.each(repositories, function(i, v) {
 
-      top.push({ name: v.language, count: 0 });
+      if(v.language === null) {
+        return;
+      }
+
+      var hit = false;
+
+      $.each(top, function(x, existing) {
+        if (existing.name === v.language) {
+          hit = existing;
+        }
+      });
+
+      if(hit !== false) {
+        hit.count++;
+        return;
+      }
+      top.push({ name: v.language, count: 1 });
+    });
+
+    top.sort(function(a, b) {
+      return b.count - a.count;
     });
     callback(top);
   },
