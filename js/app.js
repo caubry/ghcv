@@ -5,7 +5,10 @@ var Application = function() {
    */
   this.run = function() {
 
-    that = this;
+    var that = this,
+        container = $('.container');
+
+    container.addClass('loading');
 
     this.loadConfig(function(config) {
 
@@ -23,7 +26,7 @@ var Application = function() {
           data: { user: user },
           template: 'main',
           callback: function() {
-            $('.container').removeClass('loading');
+            container.removeClass('loading');
           }
         });
       });
