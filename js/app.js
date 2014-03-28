@@ -15,6 +15,9 @@ var Application = function() {
           return b.stargazers_count - a.stargazers_count;
         });
 
+        user.blog_anchor = user.blog.replace('http://', '');
+        user.blog_href = 'http://' + user.blog_anchor;
+
         that.buildSection({
           elementName: '_main',
           data: { user: user },
