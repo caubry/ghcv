@@ -14,6 +14,7 @@ var Application = function() {
         user.repositories.sort(function(a, b) {
           return b.stargazers_count - a.stargazers_count;
         });
+        user.blog.replace('http://', '');
 
         that.buildSection({
           elementName: '_main',
