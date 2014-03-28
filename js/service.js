@@ -9,12 +9,12 @@ var Service = {
 
     this.getUser(username, function(user) {
       Service.getRepositories(user, function(repositories) {
+
         user.repositories = repositories;
 
         Service.getTopLanguages(repositories, function(languages) {
           user.languages = languages;
           callback(user);
-          console.log(languages)
         });
       });
     });

@@ -10,6 +10,11 @@ var Application = function() {
     this.loadConfig(function(config) {
 
       Service.getFullUser(config.username, function(user) {
+
+        user.repositories.sort(function(a, b) {
+          return b.stargazers_count - a.stargazers_count;
+        });
+
         that.buildSection({
           elementName: '_main',
           data: { user: user },
