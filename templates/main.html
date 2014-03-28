@@ -3,12 +3,19 @@
         <img src="{{ user.avatar_url }}" class="img-rounded" id="avatar">
     </div>
     <div class="col-md-9">
-        <h1>{{ user.name }}</h1>
-        <p><span class="glyphicon glyphicon-envelope"></span> <a href="mailto:{{ user.email }}">{{ user.email }}</a></p>
-        <p><span class="glyphicon glyphicon-map-marker"></span> {{ user.location }}</p>
-        <p><span class="glyphicon glyphicon-globe"></span> <a href="{{ user.blog }}">{{ user.blog }}</a></p>
+        <div class="page-header">
+            <h1>{{ user.name }} <small>GitHubber since {{ helper.getDateObject(user.created_at).getFullYear() }}</small></h1>
+        </div>
+        {{ #user.email }}
+          <p><span class="glyphicon glyphicon-envelope"></span> <a href="mailto:{{ user.email }}">{{ user.email }}</a></p>
+        {{ /user.email }}
+        {{ #user.location }}
+          <p><span class="glyphicon glyphicon-map-marker"></span> {{ user.location }}</p>
+        {{ /user.location }}
+        {{ #user.blog }}
+          <p><span class="glyphicon glyphicon-globe"></span> <a href="{{ user.blog_href }}">{{ user.blog_anchor }}</a></p>
+        {{ /user.blog }}
         {{ #user.hirable }}
-          <!-- message for non-signed-in users -->
           <p><span class="glyphicon glyphicon-record"></span> Hirable!</p>
         {{ /user.hirable }}
         <p>{{ user.bio }}</p>
@@ -17,7 +24,7 @@
 
 <div class="row">
     <div id="repositories" class="col-md-7">
-        <h2>{{ user.public_repos }} Repositories</h2>
+        <h2>Repositories</h2>
         <ul class="list-group">
             {{ #user.repositories }}
             <li class="list-group-item repository">
@@ -38,9 +45,9 @@
     <div id="languages" class="col-md-5">
     <h2>Languages</h2>
         {{ #user.languages }}
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-            {{ name }}
+        {{ name }}
+        <div class="progress progress-striped">
+            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ count / user.repositories.length * 100 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ count / user.repositories.length * 100 }}%;">
             </div>
         </div>
         {{ /user.languages }}

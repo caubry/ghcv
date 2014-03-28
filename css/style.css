@@ -7,8 +7,12 @@
     height: 180px;
 }
 
-#user-info h1 {
+#user-info .page-header {
     margin-top: 0;
+}
+
+#user-info .page-header h1 {
+    margin-top: 5px;
 }
 
 #repositories .repository {

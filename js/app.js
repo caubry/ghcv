@@ -5,17 +5,41 @@ var Application = function() {
    */
   this.run = function() {
 
-    that = this;
+    var that = this,
+        container = $('.container');
+
+    container.addClass('loading');
 
     this.loadConfig(function(config) {
 
       Service.getFullUser(config.username, function(user) {
+
+        user.repositories.sort(function(a, b) {
+          return b.stargazers_count - a.stargazers_count;
+        });
+
+        user.blog_anchor = user.blog.replace('http://', '');
+        user.blog_href = 'http://' + user.blog_anchor;
+
         that.buildSection({
           elementName: '_main',
-          data: { user: user },
+          data: {
+            user: user,
+
+            // @todo Split out
+            helper: {
+              getDateObject: function(date) {
+
+                if(date) {
+                  return new Date(date);
+                }
+                return new Date();
+              }
+            }
+          },
           template: 'main',
           callback: function() {
-            $('.container').removeClass('loading');
+            container.removeClass('loading');
           }
         });
       });
