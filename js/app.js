@@ -23,7 +23,20 @@ var Application = function() {
 
         that.buildSection({
           elementName: '_main',
-          data: { user: user },
+          data: {
+            user: user,
+
+            // @todo Split out
+            helper: {
+              getDateObject: function(date) {
+
+                if(date) {
+                  return new Date(date);
+                }
+                return new Date();
+              }
+            }
+          },
           template: 'main',
           callback: function() {
             container.removeClass('loading');
