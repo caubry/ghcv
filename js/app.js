@@ -14,6 +14,8 @@ var Application = function() {
 
       Service.getFullUser(config.username, function(user) {
 
+        document.title = user.name + ' | GitHub CV';
+
         user.repositories.sort(function(a, b) {
           return b.stargazers_count - a.stargazers_count;
         });
