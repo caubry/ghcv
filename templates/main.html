@@ -11,7 +11,7 @@
           <p><span class="glyphicon glyphicon-map-marker"></span> {{ user.location }}</p>
         {{ /user.location }}
         {{ #user.blog }}
-          <p><span class="glyphicon glyphicon-globe"></span> <a href="http://{{ user.blog }}">{{ user.blog }}</a></p>
+          <p><span class="glyphicon glyphicon-globe"></span> <a href="{{ user.blog_href }}">{{ user.blog_anchor }}</a></p>
         {{ /user.blog }}
         {{ #user.hirable }}
           <p><span class="glyphicon glyphicon-record"></span> Hirable!</p>
