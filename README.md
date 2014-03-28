@@ -6,6 +6,10 @@
 4. `git add -A ; git commit -m "Update username" ; git push origin gh-pages`
 5. Navigate to `http://yourusername.github.io/ghcv`
 
+Keep in mind that you must have [GitHub Pages](http://pages.github.com) setup for this to work correctly.
+
+Remember that you can change `/ghcv` to whatever you like by changing the name of your fork.
+
 ## Keeping up to date
 
 At time of writing, this project is being constantly updated. To get the latest changes, you should aim to keep your fork in sync and check for changes as often as possible.
