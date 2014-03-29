@@ -47,7 +47,7 @@
         {{ #user.languages }}
         {{ name }}
         <div class="progress progress-striped">
-            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ count / user.repositories.length * 100 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ count / user.repositories.length * 100 }}%;">
+            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ helper.getLanguagePercentage(count, user.repositories) }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ helper.getLanguagePercentage(count, user.repositories) }}%;">
             </div>
         </div>
         {{ /user.languages }}
