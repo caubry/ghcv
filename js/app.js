@@ -1,14 +1,17 @@
 var Application = function() {
 
+  this.container = null;
+
   /**
    * Bootstrap the application
    */
   this.run = function() {
 
-    var that = this,
-        container = $('.container');
+    Service.setApplication(this);
 
-    container.addClass('loading');
+    this.container = $('.container');
+    this.loading(true, this.container);
+    var that = this;
 
     this.loadConfig(function(config) {
 
@@ -43,11 +46,22 @@ var Application = function() {
           },
           template: 'main',
           callback: function() {
-            container.removeClass('loading');
+            that.loading(false, that.container);
           }
         });
       });
     });
+  }
+
+  this.loading = function(isLoading, container) {
+  
+    if(isLoading === true) {
+      container.addClass('loading');
+      container.find('#footer').hide();
+    } else {
+      container.removeClass('loading');
+      container.find('#footer').show();
+    }
   }
 
   /**
@@ -86,6 +100,28 @@ var Application = function() {
    */
   this.loadConfig = function(callback) {
     $.getJSON('./config/app.json', callback);
+  }
+
+  /**
+   * Handle an error
+   */
+  this.error = function(message) {
+    this.loading(false, this.container);
+    this.container.find('#_main').html(
+      '<div class="alert alert-danger app-error">' + 
+        '<p><strong>There was an error processing the GitHub CV</strong></p>' + 
+        '<p>' + message + '<p>' + 
+      '</div>'
+    );
+  }
+
+  /**
+   * Handle a GitHub API error
+   *
+   * This is fired from Service if a jQuery.get error is fired
+   */
+  this.onApiError = function(jqXHR, textStatus, errorThrown) {
+    that.application.error(jqXHR.responseJSON.message);
   }
 }
 
