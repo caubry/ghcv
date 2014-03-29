@@ -38,6 +38,19 @@ var Application = function() {
                   return new Date(date);
                 }
                 return new Date();
+              },
+              getLanguagePercentage: function(languageCount, userRepos) {
+
+                repos = [];
+
+                for(i=0; i<userRepos.length; i++) {
+                  if(userRepos[i].language !== null) {
+                    repos.push(userRepos[i]);
+                  }
+                }
+
+                // Only count repositories that have a language
+                return languageCount / repos.length * 100
               }
             }
           },
