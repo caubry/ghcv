@@ -42,18 +42,16 @@ var Application = function() {
                 }
                 return new Date();
               },
-              getLanguagePercentage: function(languageCount, userRepos) {
+              getLanguagePercentage: function(languageCount, allLanguages) {
 
-                repos = [];
+                var languages = [],
+                    totalCount = 0;
 
-                for(i=0; i<userRepos.length; i++) {
-                  if(userRepos[i].language !== null) {
-                    repos.push(userRepos[i]);
-                  }
+                for(i=0; i<allLanguages.length; i++) {
+                  languages.push(allLanguages[i]);
+                  totalCount += allLanguages[i].count;
                 }
-
-                // Only count repositories that have a language
-                return languageCount / repos.length * 100
+                return languageCount / totalCount * 100
               }
             }
           },
