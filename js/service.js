@@ -16,7 +16,7 @@ var Service = {
    * Return a user, complete with associated data such as repositories
    */
   getFullUser: function(username, callback) {
-
+    
     this.getUser(username, function(user) {
       Service.getRepositories(user, function(repositories) {
 
@@ -25,7 +25,7 @@ var Service = {
         Service.getLanguages(repositories, function(languages) {
           user.languages = languages;
           callback(user);
-        }, 5);
+        }, Service.getApplication().getConfig().languagesToShow);
       });
     });
   },

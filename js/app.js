@@ -2,6 +2,8 @@ var Application = function() {
 
   this.container = null;
 
+  this.config = null;
+
   /**
    * Bootstrap the application
    */
@@ -14,6 +16,8 @@ var Application = function() {
     var that = this;
 
     this.loadConfig(function(config) {
+
+      that.config = config;
 
       Service.getFullUser(config.username, function(user) {
 
@@ -62,6 +66,10 @@ var Application = function() {
         });
       });
     });
+  }
+
+  this.getConfig = function() {
+    return this.config;
   }
 
   this.loading = function(isLoading, container) {
