@@ -2,6 +2,16 @@ var Service = {
 
   GITHUB_ENDPOINT: 'https://api.github.com',
 
+  application: null,
+
+  setApplication: function(application) {
+    this.application = application;
+  },
+
+  getApplication: function() {
+    return this.application;
+  },
+
   /**
    * Return a user, complete with associated data such as repositories
    */
@@ -34,6 +44,7 @@ var Service = {
    * Returns all repositories including forks
    */
   getAllRepositories: function(user, callback) {
+
     this.ghApiRequest({
       endpoint: '/users/' + user.login + '/repos',
       callback: function(data) {
@@ -111,6 +122,10 @@ var Service = {
    * Make a GET request
    */
   apiRequest: function(options) {
-    $.getJSON(options.endpoint, options.callback);
+
+    that = this;
+
+    $.getJSON(options.endpoint, options.callback)
+      .fail(that.getApplication().onApiError);
   },
 }
