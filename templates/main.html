@@ -4,7 +4,11 @@
     </div>
     <div class="col-md-10">
         <div class="page-header">
-            <h1>{{ user.name }} <small>GitHubber since {{ helper.getDateObject(user.created_at).getFullYear() }}</small></h1>
+            <h1>
+                <span class="label label-primary pull-right">{{ user.total_contributions }} contributions</span>
+                {{ user.name }} 
+                <small>GitHubber since {{ helper.getDateObject(user.created_at).getFullYear() }}</small>
+            </h1>
         </div>
         {{ #user.email }}
           <p><span class="glyphicon glyphicon-envelope"></span> <a href="mailto:{{ user.email }}">{{ user.email }}</a></p>

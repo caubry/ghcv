@@ -13,8 +13,19 @@ var Service = {
         user.repositories = repositories;
 
         Service.getTopLanguages(repositories, function(languages) {
-          user.languages = languages;
-          callback(user);
+
+          Service.getContributions(user, function(contributions) {
+            user.contributions = contributions;
+
+            user.total_contributions = 0;
+
+            $.each(contributions, function(i, v) {
+              user.total_contributions += v[1];
+            });
+
+            user.languages = languages;
+            callback(user);
+          });
         });
       });
     });
@@ -97,6 +108,13 @@ var Service = {
       return b.count - a.count;
     });
     callback(top);
+  },
+
+  getContributions: function(user, callback) {
+    this.apiRequest({
+      callback: callback,
+      endpoint: 'http://localhost/github.php'
+    });
   },
 
   /**
