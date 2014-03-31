@@ -5,7 +5,7 @@
     <div class="col-md-10">
         <div class="page-header">
             <h1>
-                <span class="label label-primary pull-right">{{ user.total_contributions }} contributions</span>
+                <span class="label label-primary pull-right"><span class="glyphicon glyphicon-calendar"></span> {{ user.total_contributions }} contributions this year</span>
                 {{ user.name }} 
                 <small>GitHubber since {{ helper.getDateObject(user.created_at).getFullYear() }}</small>
             </h1>
