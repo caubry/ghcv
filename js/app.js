@@ -1,16 +1,23 @@
 var Application = function() {
 
+  this.container = null;
+
+  this.config = null;
+
   /**
    * Bootstrap the application
    */
   this.run = function() {
 
-    var that = this,
-        container = $('.container');
+    Service.setApplication(this);
 
-    container.addClass('loading');
+    this.container = $('.container');
+    this.loading(true, this.container);
+    var that = this;
 
     this.loadConfig(function(config) {
+
+      that.config = config;
 
       Service.getFullUser(config.username, function(user) {
 
@@ -39,28 +46,41 @@ var Application = function() {
                 }
                 return new Date();
               },
-              getLanguagePercentage: function(languageCount, userRepos) {
+              getLanguagePercentage: function(languageCount, allLanguages) {
 
-                repos = [];
+                var languages = [],
+                    totalCount = 0;
 
-                for(i=0; i<userRepos.length; i++) {
-                  if(userRepos[i].language !== null) {
-                    repos.push(userRepos[i]);
-                  }
+                for(i=0; i<allLanguages.length; i++) {
+                  languages.push(allLanguages[i]);
+                  totalCount += allLanguages[i].count;
                 }
-
-                // Only count repositories that have a language
-                return languageCount / repos.length * 100
+                return languageCount / totalCount * 100
               }
             }
           },
           template: 'main',
           callback: function() {
-            container.removeClass('loading');
+            that.loading(false, that.container);
           }
         });
       });
     });
+  }
+
+  this.getConfig = function() {
+    return this.config;
+  }
+
+  this.loading = function(isLoading, container) {
+  
+    if(isLoading === true) {
+      container.addClass('loading');
+      container.find('#footer').hide();
+    } else {
+      container.removeClass('loading');
+      container.find('#footer').show();
+    }
   }
 
   /**
@@ -99,6 +119,28 @@ var Application = function() {
    */
   this.loadConfig = function(callback) {
     $.getJSON('./config/app.json', callback);
+  }
+
+  /**
+   * Handle an error
+   */
+  this.error = function(message) {
+    this.loading(false, this.container);
+    this.container.find('#_main').html(
+      '<div class="alert alert-danger app-error">' + 
+        '<p><strong>There was an error processing the GitHub CV</strong></p>' + 
+        '<p>' + message + '<p>' + 
+      '</div>'
+    );
+  }
+
+  /**
+   * Handle a GitHub API error
+   *
+   * This is fired from Service if a jQuery.get error is fired
+   */
+  this.onApiError = function(jqXHR, textStatus, errorThrown) {
+    that.application.error(jqXHR.responseJSON.message);
   }
 }
 

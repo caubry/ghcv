@@ -30,6 +30,13 @@
     <div id="repositories" class="col-md-7">
         <h2>Repositories</h2>
         <ul class="list-group">
+
+            {{ ^user.repositories }}
+            <div class="alert alert-info">
+                {{ user.login }} has no repositories
+            </div>
+            {{ /user.repositories }}
+
             {{ #user.repositories }}
             <li class="list-group-item repository">
                 <div class="pull-right repository-meta">
@@ -47,11 +54,18 @@
     </div>
 
     <div id="languages" class="col-md-5">
-    <h2>Languages</h2>
+    <h2>Top Languages</h2>
+
+        {{ ^user.languages }}
+        <div class="alert alert-info">
+            {{ user.login }} has no languages
+        </div>
+        {{ /user.languages }}
+
         {{ #user.languages }}
         {{ name }}
         <div class="progress progress-striped">
-            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ helper.getLanguagePercentage(count, user.repositories) }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ helper.getLanguagePercentage(count, user.repositories) }}%;">
+            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ helper.getLanguagePercentage(count, user.languages) }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ helper.getLanguagePercentage(count, user.languages) }}%;">
             </div>
         </div>
         {{ /user.languages }}

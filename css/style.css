@@ -57,3 +57,13 @@
     height: 32px;
     background: url('../images/loader.gif') no-repeat;
 }
+
+#footer {
+    border-top: 1px solid #ccc;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.app-error {
+    margin-top: 20px;
+}
