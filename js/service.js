@@ -16,16 +16,16 @@ var Service = {
    * Return a user, complete with associated data such as repositories
    */
   getFullUser: function(username, callback) {
-
+    
     this.getUser(username, function(user) {
       Service.getRepositories(user, function(repositories) {
 
         user.repositories = repositories;
 
-        Service.getTopLanguages(repositories, function(languages) {
+        Service.getLanguages(repositories, function(languages) {
           user.languages = languages;
           callback(user);
-        });
+        }, Service.getApplication().getConfig().languagesToShow);
       });
     });
   },
@@ -75,38 +75,38 @@ var Service = {
    * This will take all languages ordered by the number of repositories they
    * feature in
    */
-  getTopLanguages: function(repositories, callback, limit) {
-
-    if(!limit) {
-      limit = 5
-    }
+  getLanguages: function(repositories, callback, limit) {
 
     var top = [];
 
-    $.each(repositories, function(i, v) {
+    for(i=0; i<repositories.length; i++) {
 
-      if(v.language === null) {
-        return;
+      if(repositories[i].language === null) {
+        continue;
       }
 
       var hit = false;
 
       $.each(top, function(x, existing) {
-        if (existing.name === v.language) {
+        if (existing.name === repositories[i].language) {
           hit = existing;
         }
       });
 
       if(hit !== false) {
         hit.count++;
-        return;
+        continue;
       }
-      top.push({ name: v.language, count: 1 });
-    });
+      top.push({ name: repositories[i].language, count: 1 });
+    };
 
     top.sort(function(a, b) {
       return b.count - a.count;
     });
+
+    // Handle limit
+    top = top.slice(0, limit);
+
     callback(top);
   },
 
