@@ -124,7 +124,7 @@ var Service = {
   getContributions: function(user, callback) {
     this.apiRequest({
       callback: callback,
-      endpoint: 'http://localhost/github.php'
+      endpoint: 'http://ghcv.jamesmcfadden.co.uk/?username=' + this.getApplication().getConfig().username
     });
   },
 
