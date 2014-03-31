@@ -23,9 +23,20 @@ var Service = {
         user.repositories = repositories;
 
         Service.getLanguages(repositories, function(languages) {
-          user.languages = languages;
-          callback(user);
-        }, Service.getApplication().getConfig().languagesToShow);
+
+          Service.getContributions(user, function(contributions) {
+            user.contributions = contributions;
+
+            user.total_contributions = 0;
+
+            $.each(contributions, function(i, v) {
+              user.total_contributions += v[1];
+            });
+
+            user.languages = languages;
+            callback(user);
+          });
+        });
       });
     });
   },
@@ -108,6 +119,13 @@ var Service = {
     top = top.slice(0, limit);
 
     callback(top);
+  },
+
+  getContributions: function(user, callback) {
+    this.apiRequest({
+      callback: callback,
+      endpoint: 'http://ghcv.jamesmcfadden.co.uk/?username=' + this.getApplication().getConfig().username
+    });
   },
 
   /**
