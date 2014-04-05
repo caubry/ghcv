@@ -36,7 +36,7 @@ var Service = {
             user.languages = languages;
             callback(user);
           });
-        });
+        }, Service.getApplication().getConfig().languagesToShow);
       });
     });
   },
