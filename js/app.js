@@ -118,7 +118,13 @@ var Application = function() {
    * Load the config file
    */
   this.loadConfig = function(callback) {
-    $.getJSON('./config/app.json', callback);
+
+    var that = this;
+
+    $.getJSON('./config/app.json', callback)
+      .fail(function() {
+        that.error('Could not load ./config/app.json. Please ensure it exists and contains valid JSON');
+      });
   }
 
   /**
